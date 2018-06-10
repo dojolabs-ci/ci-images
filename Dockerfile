@@ -1,3 +1,5 @@
+FROM adarnimrod/goose as goose
+
 FROM python:3.6-slim-stretch
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
@@ -10,3 +12,4 @@ RUN apt-get update && \
     && \
     pip install --no-cache-dir --update pip tox pipenv | cat && \
     rm -rf /tmp/* /var/tmp/* /var/lib/apt/lists/* /var/cache/apt/archives/* /root/.cache/*
+COPY --from=goose /usr/local/bin/goose /usr/local/bin/goose
