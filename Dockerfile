@@ -1,6 +1,6 @@
 FROM adarnimrod/goose as goose
 
-FROM python:3.6-slim-stretch
+FROM python:3.7-slim-stretch
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         build-essential \
