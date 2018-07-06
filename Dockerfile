@@ -1,7 +1,13 @@
+FROM golang:1.10-alpine as ecs
+RUN apk add --update --no-cache git build-base
+RUN go get github.com/awslabs/amazon-ecr-credential-helper/ecr-login/cli/docker-credential-ecr-login
+RUN wget https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-linux-amd64-latest && \
+    install -m755 ecs-cli-linux-amd64-latest /usr/local/bin/ecs-cli
+
 FROM docker:latest
-RUN echo http://dl-cdn.alpinelinux.org/alpine/edge/main > /etc/apk/repositories && \
-    apk add --update --no-cache python3 && \
-    pip3 install --no-cache-dir --upgrade awscli docker-compose pip | cat && \
-    wget https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-linux-amd64-latest && \
-    install -m755 ecs-cli-linux-amd64-latest /usr/local/bin/ecs-cli && \
-    rm ecs-cli-linux-amd64-latest
+
+FROM python:3.7-alpine3.7
+COPY --from=docker /usr/local/bin/docker /usr/local/bin/
+COPY --from=ecs /go/bin/docker-credential-ecr-login /usr/local/bin/ecr-login
+COPY --from=ecs /usr/local/bin/ecs-cli /usr/local/bin/
+RUN pip install --no-cache-dir --progress-bar=off awscli docker-compose
