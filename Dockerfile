@@ -8,6 +8,5 @@ FROM docker:latest
 
 FROM python:3.7-alpine3.7
 COPY --from=docker /usr/local/bin/docker /usr/local/bin/
-COPY --from=ecs /go/bin/docker-credential-ecr-login /usr/local/bin/ecr-login
-COPY --from=ecs /usr/local/bin/ecs-cli /usr/local/bin/
+COPY --from=ecs /go/bin/docker-credential-ecr-login /usr/local/bin/ecs-cli /usr/local/bin/
 RUN pip install --no-cache-dir --progress-bar=off awscli docker-compose
