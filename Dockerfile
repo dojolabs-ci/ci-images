@@ -5,14 +5,14 @@ RUN wget https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-linux-amd64-latest && \
     install -m755 ecs-cli-linux-amd64-latest /usr/local/bin/ecs-cli
 RUN wget https://storage.googleapis.com/kubernetes-release/release/$(wget -O - https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && \
     install -m755 kubectl /usr/local/bin/
-RUN wget https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.3.0/heptio-authenticator-aws_0.3.0_linux_amd64 && \
-    install -m755 heptio-authenticator-aws_0.3.0_linux_amd64 /usr/local/bin/heptio-authenticator-aws
 
-FROM docker:latest
+FROM gcr.io/heptio-images/authenticator:v0.3.0-alpine-3.7 as authenticator
+FROM docker:latest as docker
 
 FROM python:3.7-alpine3.7
 COPY --from=docker /usr/local/bin/docker /usr/local/bin/
-COPY --from=ecs /go/bin/docker-credential-ecr-login /usr/local/bin/ecs-cli /usr/local/bin/kubectl /usr/local/bin/heptio-authenticator-aws /usr/local/bin/
+COPY --from=ecs /go/bin/docker-credential-ecr-login /usr/local/bin/ecs-cli /usr/local/bin/kubectl /usr/local/bin/
+COPY --from=authenticator /heptio-authenticator-aws /usr/local/bin/
 RUN pip install --no-cache-dir --progress-bar=off awscli docker-compose && \
     docker version && \
     docker-credential-ecr-login version && \
