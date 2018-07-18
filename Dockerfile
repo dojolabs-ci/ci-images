@@ -14,7 +14,7 @@ COPY --from=docker /usr/local/bin/docker /usr/local/bin/
 COPY --from=ecs /go/bin/docker-credential-ecr-login /usr/local/bin/ecs-cli /usr/local/bin/kubectl /usr/local/bin/
 COPY --from=authenticator /heptio-authenticator-aws /usr/local/bin/
 RUN pip install --no-cache-dir --progress-bar=off awscli docker-compose && \
-    docker version && \
+    { docker version || true; } && \
     docker-credential-ecr-login version && \
     ecs-cli --version && \
     kubectl version --client && \
