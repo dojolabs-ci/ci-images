@@ -1,5 +1,5 @@
 FROM golang:1.10-alpine as ecs
-RUN apk add --update --no-cache git build-base
+RUN apk add --update --no-cache git build-base curl
 RUN go get github.com/awslabs/amazon-ecr-credential-helper/ecr-login/cli/docker-credential-ecr-login
 RUN wget https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-linux-amd64-latest && \
     install -m755 ecs-cli-linux-amd64-latest /usr/local/bin/ecs-cli
@@ -21,3 +21,7 @@ RUN pip install --no-cache-dir --progress-bar=off awscli docker-compose && \
     kubectl version --client && \
     aws --version && \
     docker-compose --version
+    
+# Setup template engine.
+RUN curl -fsSL https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz | \
+    tar -xz -C /usr/local/bin/
