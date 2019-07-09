@@ -13,7 +13,8 @@ FROM python:3.7-alpine3.7
 COPY --from=docker /usr/local/bin/docker /usr/local/bin/
 COPY --from=ecs /go/bin/docker-credential-ecr-login /usr/local/bin/ecs-cli /usr/local/bin/kubectl /usr/local/bin/
 COPY --from=authenticator /heptio-authenticator-aws /usr/local/bin/
-RUN apk add --update --no-cache git zip curl gettext bash-completion bash jq gcc
+RUN apk add --update --no-cache git zip curl gettext bash-completion bash jq gcc musl-dev libffi-dev openssl-dev make
+RUN pip install --upgrade pip
 RUN pip install --no-cache-dir --progress-bar=off awscli docker-compose && \
     { docker version || true; } && \
     docker-credential-ecr-login version && \
