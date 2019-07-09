@@ -1,9 +1,10 @@
-FROM mesosphere/aws-cli as aws-cli
 FROM dojolabs/dojo-os
-
-COPY --from=aws-cli /usr/bin/aws /usr/bin/aws
 
 RUN apt -y update
 RUN apt -y install \
 	git \
-	dh-make
+	dh-make \
+	python-pip
+
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir --progress-bar=off awscli
