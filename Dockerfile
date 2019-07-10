@@ -26,7 +26,7 @@ RUN apt -y install \
         cmake \
         libhwloc-dev \
         automake \
-        luajit-5.1-dev
+        luajit-5.1-dev \
 	python-pip
 
 RUN pip install --upgrade pip
