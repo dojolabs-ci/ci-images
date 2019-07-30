@@ -5,6 +5,8 @@ ENV KAFKA_VERSION 2.2.1
 ENV HELMFILE_VERSION 0.80.2
 
 USER root
+
+RUN apk update && apk add git
 ##RUN apk update && \
 #    apk add openssl git curl jq openjdk8-jre-base docker 
 #
