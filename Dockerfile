@@ -13,7 +13,7 @@ RUN apk update && \
 # HELMFILE
 RUN wget -q https://github.com/roboll/helmfile/releases/download/v$HELMFILE_VERSION/helmfile_linux_amd64 && \
     mv helmfile_linux_amd64 /usr/local/bin/helmfile && \
-    chmod a+x /usr/local/bin/helmfile && \
+    chmod a+x /usr/local/bin/helmfile
 
 # HELM
 RUN wget -q https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz && \
