@@ -15,7 +15,7 @@ COPY --from=ecs /go/bin/docker-credential-ecr-login /usr/local/bin/ecs-cli /usr/
 COPY --from=authenticator /heptio-authenticator-aws /usr/local/bin/
 RUN apk add --update --no-cache git zip curl gettext bash-completion bash jq gcc musl-dev libffi-dev openssl-dev make
 RUN pip install --upgrade pip
-RUN pip install --no-cache-dir --progress-bar=off awscli docker-compose && \
+RUN pip install --no-cache-dir --progress-bar=off awscli docker-compose pytest && \
     { docker version || true; } && \
     docker-credential-ecr-login version && \
     ecs-cli --version && \
