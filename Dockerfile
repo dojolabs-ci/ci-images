@@ -30,5 +30,7 @@ RUN curl -L https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL
     chmod +x /usr/local/bin/kubectl    
 
 # Download terraform
-RUN curl -L https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip -o /usr/local/bin/terraform && \
+RUN curl -L https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip -o terraform.zip && \
+    unzip terraform.zip && \
+    mv terraform /usr/local/bin/ && \
     chmod +x /usr/local/bin/terraform
