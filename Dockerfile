@@ -1,4 +1,5 @@
-FROM widerin/eks-helmsman
+#FROM widerin/eks-helmsman
+FROM python:3.7-alpine
 
 ENV HELMFILE_VERSION 0.118.0
 ENV HELM_VERSION 3.2.1
