@@ -41,3 +41,6 @@ RUN curl -L https://github.com/Praqma/helmsman/releases/download/v3.4.2/helmsman
     tar -xzvf helmsman_3.4.2_linux_amd64.tar.gz && \
     mv helmsman /usr/local/bin/helmsman && \
     chmod +x /usr/local/bin/helmsman
+    
+# Add HelmDiff to support helmsman
+RUN helm plugin install https://github.com/databus23/helm-diff
