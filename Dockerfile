@@ -44,3 +44,6 @@ RUN curl -L https://github.com/Praqma/helmsman/releases/download/v3.4.2/helmsman
     
 # Add HelmDiff to support helmsman
 RUN helm plugin install https://github.com/databus23/helm-diff
+
+# Add helmpush 
+RUN helm plugin install https://github.com/chartmuseum/helm-push.git
