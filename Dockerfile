@@ -9,7 +9,7 @@ ENV KUBECTL_VERSION 1.18.0
 USER root
 
 RUN apk update && \
-    apk add openssl git curl jq openjdk8-jre-base docker 
+    apk add gawk openssl git curl jq openjdk8-jre-base docker 
 
 # HELMFILE
 RUN wget -q https://github.com/roboll/helmfile/releases/download/v$HELMFILE_VERSION/helmfile_linux_amd64 && \
