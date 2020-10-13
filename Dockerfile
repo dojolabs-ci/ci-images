@@ -7,9 +7,10 @@ ENV KUBECTL_VERSION 1.18.0
 ENV ISTIO_VERSION 1.7.3
  
 USER root
- 
-RUN apk update && \
- apk add gawk openssl git curl jq openjdk8-jre-base docker
+
+RUN apk update
+RUN apk add --update coreutils
+RUN apk add gawk openssl git curl jq openjdk8-jre-base docker sed bash
  
 # ISTIO
 RUN curl -o istio.tar.gz https://storage.googleapis.com/istio-release/releases/${ISTIO_VERSION}/istioctl-${ISTIO_VERSION}-linux-amd64.tar.gz && \
