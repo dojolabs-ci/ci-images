@@ -10,8 +10,8 @@ USER root
 
 RUN apk update
 RUN apk add --update coreutils
-RUN apk add gawk openssl git curl jq openjdk8-jre-base docker sed bash
- 
+RUN apk add gawk openssl git curl jq openjdk8-jre-base docker sed bash openssh
+
 # ISTIO
 RUN curl -o istio.tar.gz https://storage.googleapis.com/istio-release/releases/${ISTIO_VERSION}/istioctl-${ISTIO_VERSION}-linux-amd64.tar.gz && \
  tar -xvzf istio.tar.gz && \
@@ -54,3 +54,6 @@ RUN helm plugin install https://github.com/databus23/helm-diff
  
 # Add helmpush
 RUN helm plugin install https://github.com/chartmuseum/helm-push.git
+# Add helm chart bump version
+
+RUN helm plugin install https://github.com/mbenabda/helm-local-chart-version
